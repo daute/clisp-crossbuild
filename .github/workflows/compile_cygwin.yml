@@ -18,6 +18,8 @@ jobs:
         run: |
              cd clisp
              ./configure --config --host=i686-w64-mingw32 --enable-portability --ignore-absence-of-libsigsegv build
+        shell: C:\tools\cygwin\bin\bash.exe --login --norc -eo pipefail -o igncr '{0}'
+
       - name: compile
         run: |
              cd build
