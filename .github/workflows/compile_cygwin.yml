@@ -25,5 +25,5 @@ jobs:
 
       - name: compile
         run: |
-             cd build
+             cd clisp/build
              make
