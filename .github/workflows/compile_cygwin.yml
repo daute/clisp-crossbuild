@@ -17,11 +17,11 @@ jobs:
           platform: x64
           packages: cmake git mingw64-i686-gcc-core make
       - name: Checkout_git
-        run: git clone https://gitlab.com/gnu-clisp/clisp.git
+        run: git clone -–depth 1 https://gitlab.com/gnu-clisp/clisp.git
       - name: configure
         run: |
              cd clisp
-             ./configure --config --host=i686-w64-mingw32 --enable-portability --ignore-absence-of-libsigsegv build
+             ./configure --config --host=i686-w64-mingw32 --enable-portability --ignore-absence-of-libsigsegv --disable-threads build
 
       - name: compile
         run: |
