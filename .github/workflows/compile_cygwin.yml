@@ -1,7 +1,7 @@
 # Set up Cygwin. Source: https://github.com/egor-tensin/setup-cygwin
 name: compile_cygwin
 
-on: [push]
+on: [push]bash
 
 jobs:
   setup_cygwin:
