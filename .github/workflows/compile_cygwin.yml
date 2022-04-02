@@ -14,7 +14,7 @@ jobs:
       - name: setup_cygwin
         uses: egor-tensin/setup-cygwin@v3
         with:
-          platform: x64
+          platform: x86
           packages: cmake git mingw64-i686-gcc-core make
       - name: Checkout_git
         run: git clone --depth 1 https://github.com/daute/clisp.git
