@@ -1,7 +1,7 @@
 # Set up Cygwin. Source: https://github.com/egor-tensin/setup-cygwin
 name: compile_cygwin
 
-on: [push]bash
+on: [push]
 
 jobs:
   setup_cygwin:
@@ -15,13 +15,12 @@ jobs:
         uses: egor-tensin/setup-cygwin@v3
         with:
           platform: x64
-          packages: cmake git mingw64-i686-gcc-core make patch
+          packages: cmake git mingw64-i686-gcc-core make
       - name: Checkout_git
         run: git clone --depth 1 https://gitlab.com/gnu-clisp/clisp.git
       - name: configure
         run: |
              cd clisp
-             patch -p1 <../token-eof.patch
              ./configure --config --host=i686-w64-mingw32 --enable-portability --ignore-absence-of-libsigsegv --disable-threads build
 
       - name: compile
