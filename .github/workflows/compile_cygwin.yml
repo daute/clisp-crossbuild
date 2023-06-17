@@ -1,4 +1,3 @@
-# Set up Cygwin. Source: https://github.com/egor-tensin/setup-cygwin
 name: compile_cygwin
 
 on: [push]
@@ -12,12 +11,12 @@ jobs:
         
     steps:
       - name: setup_cygwin
-        uses: egor-tensin/setup-cygwin@v3
+        uses: cygwin/cygwin-install-action@v4
         with:
-          platform: x86
-          packages: cmake git mingw64-i686-gcc-core make
+          platform: x86_64
+          packages: git mingw64-i686-gcc-core mingw64-i686-gcc-g++ mingw64-i686-headers mingw64-i686-runtime make
       - name: Checkout_git
-        run: git clone --depth 1 https://github.com/daute/clisp.git
+        run: git clone --depth 1 https://gitlab.com/gnu-clisp/clisp.git
       - name: configure
         run: |
              cd clisp
