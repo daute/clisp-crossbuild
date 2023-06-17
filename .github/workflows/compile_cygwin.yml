@@ -14,7 +14,7 @@ jobs:
         uses: cygwin/cygwin-install-action@v4
         with:
           platform: x86_64
-          packages: git mingw64-i686-gcc-core mingw64-i686-gcc-g++ mingw64-i686-headers mingw64-i686-runtime make
+          packages: mingw64-i686-gcc-core mingw64-i686-gcc-g++ mingw64-i686-headers mingw64-i686-runtime make
       - name: Checkout_git
         run: git clone --depth 1 https://gitlab.com/gnu-clisp/clisp.git
       - name: configure
