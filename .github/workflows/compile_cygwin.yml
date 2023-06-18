@@ -16,12 +16,13 @@ jobs:
           platform: x86_64
           packages: mingw64-i686-gcc-core mingw64-i686-gcc-g++ mingw64-i686-headers mingw64-i686-runtime make
       - name: Checkout_git
-        run: git clone --depth 1 https://gitlab.com/gnu-clisp/clisp.git
+        uses: actions/checkout@v3
+        with:
+          repository: 'https://gitlab.com/gnu-clisp/clisp.git'
       - name: configure
         run: |
              cd clisp
              ./configure --config --host=i686-w64-mingw32 --enable-portability --ignore-absence-of-libsigsegv --disable-threads build
-
       - name: compile
         run: |
              cd clisp/build
