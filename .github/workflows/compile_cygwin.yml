@@ -18,7 +18,7 @@ jobs:
       - name: Checkout_git
         uses: actions/checkout@v3
         with:
-          repository: 'https://gitlab.com/gnu-clisp/clisp.git'
+          repository: 'daute/clisp-mirror'
       - name: configure
         run: |
              cd clisp
