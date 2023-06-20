@@ -15,11 +15,11 @@ jobs:
         uses: cygwin/cygwin-install-action@v4
         with:
           platform: x86_64
-          packages: mingw64-i686-gcc-core mingw64-i686-gcc-g++ mingw64-i686-headers mingw64-i686-runtime make
+          packages: mingw64-i686-gcc-core mingw64-i686-gcc-g++ mingw64-i686-headers mingw64-i686-runtime make wget unzip
       - name: Download_extract_clisp
         run: |
-             Invoke-WebRequest https://gitlab.com/gnu-clisp/clisp/-/archive/master/clisp-master.zip
-             Expand-Archive clisp-master.zip
+             wget https://gitlab.com/gnu-clisp/clisp/-/archive/master/clisp-master.zip
+             unzip clisp-master.zip
       - name: configure
         run: |
              PATH=/usr/local/mingw32/bin:/usr/i686-w64-mingw32/sys-root/mingw/bin:$PATH
