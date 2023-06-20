@@ -18,8 +18,7 @@ jobs:
           packages: mingw64-i686-gcc-core mingw64-i686-gcc-g++ mingw64-i686-headers mingw64-i686-runtime make
       - name: Prepare_git
         run: |
-             git config --global core.autocrlf false
-             git config --global core.eol lf
+             git config --global core.autocrlf input
       - name: Checkout_git
         uses: actions/checkout@v3
         with:
