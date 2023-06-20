@@ -16,22 +16,16 @@ jobs:
         with:
           platform: x86_64
           packages: mingw64-i686-gcc-core mingw64-i686-gcc-g++ mingw64-i686-headers mingw64-i686-runtime make
-      - name: Prepare_git
+      - name: Download_extract_clisp
         run: |
-             git config --global core.autocrlf false
-      - name: Checkout_git
-        uses: actions/checkout@v3
-        with:
-          repository: 'daute/clisp-mirror'
+             Invoke-WebRequest https://gitlab.com/gnu-clisp/clisp/-/archive/master/clisp-master.zip
+             Expand-Archive clisp-master.zip
       - name: configure
         run: |
              PATH=/usr/local/mingw32/bin:/usr/i686-w64-mingw32/sys-root/mingw/bin:$PATH
              export PATH
              pwd
-             ls
-             cd /cygdrive/d/a/clisp-crossbuild/clisp-crossbuild
-             ls
-             sed -r -i 's/\r//' configure */configure */*/configure src/build-aux/* src/* src/makemake*
+             cd clisp-master
              ./configure --host=i686-w64-mingw32 --ignore-absence-of-libsigsegv --prefix=/usr/local/mingw32 CC=i686-w64-mingw32-gcc CXX=i686-w64-mingw32-g++ CPPFLAGS="-I/usr/local/mingw32/include -Wall" LDFLAGS="-L/usr/local/mingw32/lib"
       - name: compile
         run: |
