@@ -17,7 +17,8 @@ jobs:
           platform: x86_64
           packages: mingw64-i686-gcc-core mingw64-i686-gcc-g++ mingw64-i686-headers mingw64-i686-runtime make
       - name: Checkout_git
-        run: git config --global core.autocrlf input
+        run: |
+          git config --global core.autocrlf input
         uses: actions/checkout@v3
         with:
           repository: 'daute/clisp-mirror'
