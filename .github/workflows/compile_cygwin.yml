@@ -5,9 +5,6 @@ on: [push]
 jobs:
   setup_cygwin:
     runs-on: windows-latest
-    defaults:
-      run:
-        shell: C:\tools\cygwin\bin\bash.exe --login --norc -eo pipefail -o igncr '{0}'
         
     steps:
       - name: setup_cygwin
