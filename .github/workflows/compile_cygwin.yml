@@ -26,7 +26,8 @@ jobs:
              export PATH
              pwd
              ls
-             cd /cygdrive/d/a/clisp-crossbuild/clisp-crossbuild/clisp-mirror
+             cd /cygdrive/d/a/clisp-crossbuild/clisp-crossbuild
+             ls
              ./configure --host=i686-w64-mingw32 --ignore-absence-of-libsigsegv --prefix=/usr/local/mingw32 CC=i686-w64-mingw32-gcc CXX=i686-w64-mingw32-g++ CPPFLAGS="-I/usr/local/mingw32/include -Wall" LDFLAGS="-L/usr/local/mingw32/lib"
       - name: compile
         run: |
