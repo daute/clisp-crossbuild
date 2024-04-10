@@ -16,6 +16,10 @@ jobs:
         with:
           platform: x86_64
           packages: mingw64-i686-gcc-core mingw64-i686-gcc-g++ mingw64-i686-headers mingw64-i686-runtime make wget unzip
+      - name: download_extract_libsigsegv
+        run: |
+             wget https://ftp.gnu.org/gnu/libsigsegv/libsigsegv-2.14.tar.gz
+             tar xvf libsigsegv-2.14.tar.gz
       - name: Download_extract_clisp
         run: |
              wget https://gitlab.com/gnu-clisp/clisp/-/archive/master/clisp-master.zip
