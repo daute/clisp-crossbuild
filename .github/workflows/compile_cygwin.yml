@@ -15,7 +15,7 @@ jobs:
         uses: cygwin/cygwin-install-action@v4
         with:
           platform: x86_64
-          packages: mingw64-i686-gcc-core mingw64-i686-gcc-g++ mingw64-i686-headers mingw64-i686-runtime make wget unzip
+          packages: mingw64-i686-gcc-core mingw64-i686-gcc-g++ mingw64-i686-headers mingw64-i686-runtime make wget unzip patch
       - name: Download_libffcall
         run: wget https://ftp.gnu.org/gnu/libffcall/libffcall-2.4.tar.gz
       - name: Extract_libffcall
@@ -40,14 +40,15 @@ jobs:
         run: |
              wget https://gitlab.com/gnu-clisp/clisp/-/archive/master/clisp-master.zip
              unzip clisp-master.zip
-      - name: configure
+      - name: configure_clisp
         run: |
              PATH=/usr/local/mingw32/bin:/usr/i686-w64-mingw32/sys-root/mingw/bin:$PATH
              export PATH
              pwd
              cd clisp-master
+             patch -p1 <../token-eof-patch
              bash ./configure --config --host=i686-w64-mingw32 --with-debug --disable-threads --enable-compatibility --with-libffcall-prefix=/home/runneradmin/libffcall --with-libsigsegv-prefix=/home/runneradmin/libsigsegv build
-      - name: compile
+      - name: compile_clisp
         run: |
              pwd
              cd clisp-master/build
