@@ -16,10 +16,26 @@ jobs:
         with:
           platform: x86_64
           packages: mingw64-i686-gcc-core mingw64-i686-gcc-g++ mingw64-i686-headers mingw64-i686-runtime make wget unzip
-      - name: download_extract_libsigsegv
+      - name: Download_libffcall
+        run: wget https://ftp.gnu.org/gnu/libffcall/libffcall-2.4.tar.gz
+      - name: Extract_libffcall
+        run: tar xvf libffcall-2.4.tar.gz
+      - name: Build_libffcall
         run: |
-             wget https://ftp.gnu.org/gnu/libsigsegv/libsigsegv-2.14.tar.gz
-             tar xvf libsigsegv-2.14.tar.gz
+             cd libffcall-2.4
+             bash ./configure --enable-static --enable-shared=no --build=i686-unknown-cygwin --host=i686-w64-mingw32 --prefix=/home/runneradmin/libffcall
+             make
+             make install
+      - name: Download_libsigsegv
+        run: wget https://ftp.gnu.org/gnu/libsigsegv/libsigsegv-2.14.tar.gz
+      - name: Extract_libffcall
+        run: tar xvf libsigsegv-2.14.tar.gz
+      - name: Build_libsigsegv
+        run: |
+             cd libsigsegv-2.14
+             bash ./configure --build=i686-unknown-cygwin --host=i686-w64-mingw32 --prefix=/home/runneradmin/libsigsegv
+             make
+             make install
       - name: Download_extract_clisp
         run: |
              wget https://gitlab.com/gnu-clisp/clisp/-/archive/master/clisp-master.zip
@@ -30,10 +46,10 @@ jobs:
              export PATH
              pwd
              cd clisp-master
-             ./configure --host=i686-w64-mingw32 --ignore-absence-of-libsigsegv --prefix=/usr/local/mingw32 CC=i686-w64-mingw32-gcc CXX=i686-w64-mingw32-g++ CPPFLAGS="-I/usr/local/mingw32/include -Wall -DNO_OLDNAMES" CFLAGS="-DNO_OLDNAMES" LDFLAGS="-L/usr/local/mingw32/lib"
+             bash ./configure --config --host=i686-w64-mingw32 --with-debug --disable-threads --enable-compatibility --with-libffcall-prefix=/home/runneradmin/libffcall --with-libsigsegv-prefix=/home/runneradmin/libsigsegv build
       - name: compile
         run: |
              pwd
-             cd clisp-master
+             cd clisp-master/build
              make
 
