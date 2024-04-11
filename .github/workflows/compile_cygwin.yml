@@ -46,7 +46,8 @@ jobs:
              export PATH
              pwd
              cd clisp-master
-             patch -p1 </home/runneradmin/token-eof-patch
+             wget https://raw.githubusercontent.com/daute/clisp-crossbuild/main/token-eof-patch
+             patch -p1 <token-eof-patch
              bash ./configure --config --host=i686-w64-mingw32 --with-debug --disable-threads --enable-compatibility --with-libffcall-prefix=/home/runneradmin/libffcall --with-libsigsegv-prefix=/home/runneradmin/libsigsegv build
       - name: compile_clisp
         run: |
