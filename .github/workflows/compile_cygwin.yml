@@ -28,7 +28,7 @@ jobs:
              make install
       - name: Download_libsigsegv
         run: wget https://ftp.gnu.org/gnu/libsigsegv/libsigsegv-2.14.tar.gz
-      - name: Extract_libffcall
+      - name: Extract_libsigsegv
         run: tar xvf libsigsegv-2.14.tar.gz
       - name: Build_libsigsegv
         run: |
@@ -48,6 +48,8 @@ jobs:
              cd clisp-master
              wget https://raw.githubusercontent.com/daute/clisp-crossbuild/main/token-eof-patch
              patch -p1 <token-eof-patch
+             wget https://raw.githubusercontent.com/daute/clisp-crossbuild/main/floatparam-error-unknown-rounding-mode-patch
+             patch src/floatparam.c <floatparam-error-unknown-rounding-mode-patch
              bash ./configure --config --host=i686-w64-mingw32 --with-debug --disable-threads --enable-compatibility --with-libffcall-prefix=/home/runneradmin/libffcall --with-libsigsegv-prefix=/home/runneradmin/libsigsegv build
       - name: compile_clisp
         run: |

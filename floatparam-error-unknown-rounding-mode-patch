@@ -1,0 +1,7 @@
+89,90c89,91
+<     else								\
+<       printf("#error \"Unknown rounding mode for type %s!\"\n",typestr); \
+---
+>     else /* FIXME: error message replaced (dauti) */								\
+>       printf("#define %s_rounds rounds_to_nearest\n",typeprefix);       \
+>       rounds_to_nearest = TRUE;                                         \
