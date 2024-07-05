@@ -46,8 +46,6 @@ jobs:
              export PATH
              pwd
              cd clisp-master
-             wget https://raw.githubusercontent.com/daute/clisp-crossbuild/main/token-eof-patch
-             patch -p1 <token-eof-patch
              wget https://raw.githubusercontent.com/daute/clisp-crossbuild/main/floatparam-error-unknown-rounding-mode-patch
              patch src/floatparam.c <floatparam-error-unknown-rounding-mode-patch
              bash ./configure --config --host=i686-w64-mingw32 --with-debug --disable-threads --enable-compatibility --with-libffcall-prefix=/home/runneradmin/libffcall --with-libsigsegv-prefix=/home/runneradmin/libsigsegv build
