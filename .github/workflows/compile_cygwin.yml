@@ -17,12 +17,12 @@ jobs:
           platform: x86_64
           packages: mingw64-i686-gcc-core mingw64-i686-gcc-g++ mingw64-i686-headers mingw64-i686-runtime make wget unzip patch
       - name: Download_libffcall
-        run: wget https://ftp.gnu.org/gnu/libffcall/libffcall-2.4.tar.gz
+        run: wget https://ftp.gnu.org/gnu/libffcall/libffcall-2.5.tar.gz
       - name: Extract_libffcall
-        run: tar xvf libffcall-2.4.tar.gz
+        run: tar xvf libffcall-2.5.tar.gz
       - name: Build_libffcall
         run: |
-             cd libffcall-2.4
+             cd libffcall-2.5
              bash ./configure --enable-static --enable-shared=no --build=i686-unknown-cygwin --host=i686-w64-mingw32 --prefix=/home/runneradmin/libffcall
              make
              make install
