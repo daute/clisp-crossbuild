@@ -1,0 +1,59 @@
+name: compile_cygwin
+
+on: [push]
+
+jobs:
+  setup_cygwin:
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: C:\cygwin\bin\bash.exe --login --norc -o igncr '{0}'
+
+        
+    steps:
+      - name: setup_cygwin
+        uses: cygwin/cygwin-install-action@v4
+        with:
+          platform: x86_64
+          packages: mingw64-x86_64-gcc-core mingw64-x86_64-gcc-g++ mingw64-x86_64-headers mingw64-x86_64-runtime make wget unzip patch
+      - name: Download_libffcall
+        run: wget https://ftp.gnu.org/gnu/libffcall/libffcall-2.5.tar.gz
+      - name: Extract_libffcall
+        run: tar xvf libffcall-2.5.tar.gz
+      - name: Build_libffcall
+        run: |
+             cd libffcall-2.5
+             bash ./configure --enable-static --enable-shared=no --build=x86_64-unknown-cygwin --host=x86_64-w64-mingw32 --prefix=/home/runneradmin/libffcall
+             make
+             make install
+      - name: Download_libsigsegv
+        run: wget https://ftp.gnu.org/gnu/libsigsegv/libsigsegv-2.14.tar.gz
+      - name: Extract_libsigsegv
+        run: tar xvf libsigsegv-2.14.tar.gz
+      - name: Build_libsigsegv
+        run: |
+             cd libsigsegv-2.14
+             bash ./configure --build=x86_64-unknown-cygwin --host=x86_64-w64-mingw32 --prefix=/home/runneradmin/libsigsegv
+             make
+             make install
+      - name: Download_clisp
+        run: |
+             wget https://gitlab.com/gnu-clisp/clisp/-/archive/master/clisp-master.zip
+      - name: Extract_clisp
+        run: |
+             unzip clisp-master.zip
+      - name: configure_clisp
+        run: |
+             PATH=/usr/local/mingw32/bin:/usr/x86_64-w64-mingw32/sys-root/mingw/bin:$PATH
+             export PATH
+             pwd
+             cd clisp-master
+             wget https://raw.githubusercontent.com/daute/clisp-crossbuild/main/floatparam-error-unknown-rounding-mode-patch
+             patch src/floatparam.c <floatparam-error-unknown-rounding-mode-patch
+             bash ./configure --config --host=x86_64-w64-mingw32 --with-debug --disable-threads --enable-compatibility --with-libffcall-prefix=/home/runneradmin/libffcall --with-libsigsegv-prefix=/home/runneradmin/libsigsegv build
+      - name: compile_clisp
+        run: |
+             pwd
+             cd clisp-master/build
+             make
+
