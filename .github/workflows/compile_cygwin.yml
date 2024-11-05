@@ -36,9 +36,11 @@ jobs:
              bash ./configure --build=i686-unknown-cygwin --host=i686-w64-mingw32 --prefix=/home/runneradmin/libsigsegv
              make
              make install
-      - name: Download_extract_clisp
+      - name: Download_clisp
         run: |
              wget https://gitlab.com/gnu-clisp/clisp/-/archive/master/clisp-master.zip
+      - name: Extract_clisp
+        run: |
              unzip clisp-master.zip
       - name: configure_clisp
         run: |
