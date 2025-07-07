@@ -12,7 +12,7 @@ jobs:
         
     steps:
       - name: setup_cygwin
-        uses: cygwin/cygwin-install-action@v5
+        uses: cygwin/cygwin-install-action@v6
         with:
           platform: x86_64
           packages: mingw64-i686-gcc-core mingw64-i686-gcc-g++ mingw64-i686-headers mingw64-i686-runtime make wget unzip patch
