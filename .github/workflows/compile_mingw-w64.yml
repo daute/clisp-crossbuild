@@ -39,4 +39,7 @@ jobs:
            cd clisp
 
     - shell: msys2 {0}
-      run: ./configure --cbc build
+      run: |
+           pwd
+           ls
+           configure --cbc build
