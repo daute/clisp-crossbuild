@@ -41,4 +41,4 @@ jobs:
            cd clisp
            pwd
            ls
-           configure --cbc build
+           ./configure --cbc build
