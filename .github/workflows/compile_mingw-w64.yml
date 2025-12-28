@@ -25,23 +25,18 @@ jobs:
         update: true
         install: >-
           git
-          wget
-          unzip
           base-devel
           mingw-w64-x86_64-toolchain
           mingw-w64-x86_64-libsigsegv
           mingw-w64-x86_64-ffcall
           mingw-w64-x86_64-readline
     - run: reg add "HKLM\Software\Microsoft\Windows\Windows Error Reporting" /f /v DontShowUI /d 1
-    - name: Download_clisp
-      run: |
-           wget https://gitlab.com/gnu-clisp/clisp/-/archive/master/clisp-master.zip
-    - name: Extract_clisp
-      run: |
-           unzip clisp-master.zip
+
+    - name: Clone Repository
+      run: git clone --depth 1 https://gitlab.com/gnu-clisp/clisp
     - name: configure_clisp
       run: |
-           cd clisp-master
+           cd clisp
 
     - shell: msys2 {0}
       run: ./configure --cbc build
