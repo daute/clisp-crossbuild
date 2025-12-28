@@ -32,14 +32,13 @@ jobs:
           mingw-w64-x86_64-readline
     - run: reg add "HKLM\Software\Microsoft\Windows\Windows Error Reporting" /f /v DontShowUI /d 1
 
-    - name: Clone Repository
+    - name: Clone Clisp Repository
       run: git clone --depth 1 https://gitlab.com/gnu-clisp/clisp
+
     - name: configure_clisp
+      shell: msys2 {0}
       run: |
            cd clisp
-
-    - shell: msys2 {0}
-      run: |
            pwd
            ls
            configure --cbc build
