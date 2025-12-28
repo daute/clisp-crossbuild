@@ -1,0 +1,47 @@
+# Idea from rurban: https://github.com/rurban/clisp/blob/ci/.github/workflows/ci.yml
+# removed MacOS/Linux, updated mingw.
+
+name: compile_mingw
+
+on: [push]
+
+jobs:
+  mingw:
+    name: mingw
+    runs-on: windows-latest
+    env:
+      MSYS2_DIR: msys64
+      MSYS2_ARCH: x86_64
+      MSYSTEM: MINGW64
+      ARCH: win64
+      PLATFORM: x64
+      #PATH: "C:\%MSYS2_DIR%\%MSYSTEM%\bin;C:\%MSYS2_DIR%\usr\bin;%PATH%"
+    steps:
+      # see https://github.com/msys2/setup-msys2
+    - name: setup-msys2
+      uses: msys2/setup-msys2@v2
+      with:
+        path-type: minimal
+        update: true
+        install: >-
+          git
+          wget
+          unzip
+          base-devel
+          mingw-w64-x86_64-toolchain
+          mingw-w64-x86_64-libsigsegv
+          mingw-w64-x86_64-ffcall
+          mingw-w64-x86_64-readline
+    - run: reg add "HKLM\Software\Microsoft\Windows\Windows Error Reporting" /f /v DontShowUI /d 1
+    - name: Download_clisp
+      run: |
+           wget https://gitlab.com/gnu-clisp/clisp/-/archive/master/clisp-master.zip
+    - name: Extract_clisp
+      run: |
+           unzip clisp-master.zip
+    - name: configure_clisp
+      run: |
+           cd clisp-master
+
+    - shell: msys2 {0}
+      run: ./configure --cbc build
